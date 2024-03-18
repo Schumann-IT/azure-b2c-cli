@@ -5,23 +5,26 @@ ifeq ($(ARCH),x86_64)
 	ARCH := amd64
 endif
 OS := $(shell uname -s | tr '[:upper:]' '[:lower:]')
-VERSION := $(shell curl -s https://api.github.com/repos/Schumann-IT/go-ieftool/releases/latest | grep "tag_name" | awk '{print $$2}' | sed 's|[\"\,]*||g')
+TAG := $(shell curl -s https://api.github.com/repos/Schumann-IT/azure-b2c-cli/releases/latest | grep "tag_name" | awk '{print $$2}' | sed 's|[\"\,]*||g')
+VERSION := $(shell  echo $(TAG) | tr -d v)
 
 clean:
 	@rm -Rf build
-	@rm -f ./ieftool
+	@rm -Rf dist
+	@rm -f ./azure-b2c-cli*
 
 build:
-	@go build -o azb2c
+	@go build -o azure-b2c-cli
 
-install: ieftool
-	@sudo mv ieftool /usr/local/bin/ieftool
+install: azure-b2c-cli
+	@sudo mv azure-b2c-cli /usr/local/bin/azure-b2c-cli
 
-ieftool:
-	@curl -s -L -o ieftool https://github.com/Schumann-IT/go-ieftool/releases/download/$(VERSION)/ieftool-$(OS)-$(ARCH)
-	@chmod +x ieftool
+azure-b2c-cli:
+	@curl -s -L -o azure-b2c-cli_$(TAG).zip https://github.com/Schumann-IT/azure-b2c-cli/releases/download/$(TAG)/azure-b2c-cli_$(VERSION)_$(OS)_$(ARCH).zip
+	@unzip azure-b2c-cli_$(TAG).zip
+	@mv azure-b2c-cli_$(TAG) azure-b2c-cli
 	@if [ "$(OS)" = "darwin" ]; then\
-        xattr -d com.apple.quarantine ./ieftool /dev/null 2>&1 | true; \
+        xattr -d com.apple.quarantine ./azure-b2c-cli /dev/null 2>&1 | true; \
     fi
 
 check:

@@ -11,7 +11,7 @@ import (
 var log = logging.MustGetLogger("cmd")
 
 var rootCmd = &cobra.Command{
-	Use:   "azureb2c",
+	Use:   "azure-b2c-cli",
 	Short: "Tooling for Azure B2C",
 	PersistentPreRun: func(cmd *cobra.Command, _ []string) {
 		lvl := logging.INFO
