@@ -29,4 +29,4 @@ check:
 	@if [[ "" == "$(GITHUB_TOKEN)" ]]; then echo "please provide GITHUB_TOKEN"; exit 1; fi
 
 release: check
-	@goreleaser release --clean --timeout 2h --verbose --parallelism 4 --skip=publish --snapshot
+	@goreleaser release --clean --timeout 2h --verbose --parallelism 4
