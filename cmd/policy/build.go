@@ -47,7 +47,7 @@ func getBuildService(flags *pflag.FlagSet) (*b2c.Service, string, error) {
 		errs = multierror.Append(errs, err)
 	}
 
-	s, err := b2c.NewService(cf, sd, dd)
+	s, err := b2c.NewServiceFromConfigFile(cf, sd, dd)
 	if err != nil {
 		errs = multierror.Append(errs, err)
 	}

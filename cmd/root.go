@@ -1,7 +1,9 @@
 package cmd
 
 import (
+	"com.schumann-it.azure-b2c-cli/cmd/application"
 	"com.schumann-it.azure-b2c-cli/cmd/policy"
+	"com.schumann-it.azure-b2c-cli/cmd/serviceprincipal"
 	"github.com/spf13/cobra"
 	"gopkg.in/op/go-logging.v1"
 )
@@ -28,6 +30,8 @@ var rootCmd = &cobra.Command{
 func init() {
 	rootCmd.PersistentFlags().Bool("debug", false, "Enable debug mode")
 	rootCmd.AddCommand(policy.RootCmd)
+	rootCmd.AddCommand(application.RootCmd)
+	rootCmd.AddCommand(serviceprincipal.RootCmd)
 }
 
 func Execute() {

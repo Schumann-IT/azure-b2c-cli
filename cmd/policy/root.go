@@ -64,7 +64,7 @@ func getNewRemoteService() (*b2c.Service, string, error) {
 		errs = multierror.Append(errs, err)
 	}
 
-	s, err := b2c.NewService(cf, "", "")
+	s, err := b2c.NewServiceFromConfigFile(cf, "", "")
 	if err != nil {
 		errs = multierror.Append(errs, err)
 	}

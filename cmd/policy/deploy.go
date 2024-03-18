@@ -42,7 +42,7 @@ func getDeployService(flags *pflag.FlagSet) (*b2c.Service, string, error) {
 		errs = multierror.Append(errs, err)
 	}
 
-	s, err := b2c.NewService(cf, "", bd)
+	s, err := b2c.NewServiceFromConfigFile(cf, "", bd)
 	if err != nil {
 		errs = multierror.Append(errs, err)
 	}
