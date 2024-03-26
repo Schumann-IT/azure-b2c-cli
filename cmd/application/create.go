@@ -32,5 +32,6 @@ var create = &cobra.Command{
 
 func init() {
 	create.Flags().StringArray("name", []string{}, "The name of the application to create (can be supplied multiple times).")
+	_ = create.MarkFlagRequired("name")
 	RootCmd.AddCommand(create)
 }

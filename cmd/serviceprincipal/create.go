@@ -39,6 +39,12 @@ var create = &cobra.Command{
 
 		// create service principal with required graph api permissions
 		appId, password, err := gc.CreateServicePrincipal(name, "00000003-0000-0000-c000-000000000000", []string{
+			"9a5d68dd-52b0-4cc2-bd40-abcf44ac3a30", // https://learn.microsoft.com/en-us/graph/permissions-reference#applicationreadall
+			"1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9", // https://learn.microsoft.com/en-us/graph/permissions-reference#applicationreadwriteall
+			"498476ce-e0fe-48b0-b801-37ba7e2685c6", // https://learn.microsoft.com/en-us/graph/permissions-reference#organizationreadall
+			"292d869f-3427-49a8-9dab-8c70152b74e9", // https://learn.microsoft.com/en-us/graph/permissions-reference#organizationreadwriteall
+			"eb76ac34-0d62-4454-b97c-185e4250dc20", // https://learn.microsoft.com/en-us/graph/permissions-reference#organizationalbrandingreadall
+			"d2ebfbc1-a5f8-424b-83a6-56ab5927a73c", // https://learn.microsoft.com/en-us/graph/permissions-reference#organizationalbrandingreadwriteall
 			"246dd0d5-5bd0-4def-940b-0421030a5b68", // https://learn.microsoft.com/en-us/graph/permissions-reference#policyreadall
 			"79a677f7-b79d-40d0-a36a-3e6f8688dd7a", // https://learn.microsoft.com/en-us/graph/permissions-reference#policyreadwritetrustframework
 			"fff194f1-7dce-4428-8301-1badb5518201", // https://learn.microsoft.com/en-us/graph/permissions-reference#trustframeworkkeysetreadall
@@ -55,7 +61,8 @@ var create = &cobra.Command{
 }
 
 func init() {
-	create.Flags().String("tenant", "t", "The tenant ID.")
+	create.Flags().String("tenant", "", "The tenant ID.")
+	_ = create.MarkFlagRequired("tenant")
 	create.Flags().StringP("name", "n", "sp-azureb2c-cli", "The name of the service principal to create.")
 	RootCmd.AddCommand(create)
 }
