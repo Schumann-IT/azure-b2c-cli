@@ -14,12 +14,12 @@ var build = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		s, en, err := getBuildService(cmd.Flags())
 		if err != nil {
-			log.Fatalf("could build policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to build policies for environment %s: %s", en, err.Error())
 		}
 
 		err = s.BuildPolicies(en)
 		if err != nil {
-			log.Fatalf("could build policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to build policies for environment %s: %s", en, err.Error())
 		}
 	},
 }
@@ -47,7 +47,9 @@ func getBuildService(flags *pflag.FlagSet) (*b2c.Service, string, error) {
 		errs = multierror.Append(errs, err)
 	}
 
-	s, err := b2c.NewServiceFromConfigFile(cf, sd, dd)
+	s, err := b2c.NewServiceFromConfigFile(cf)
+	s.MustWithSourceDir(sd)
+	s.MustWithTargetDir(dd)
 	if err != nil {
 		errs = multierror.Append(errs, err)
 	}

@@ -11,12 +11,12 @@ var remove = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		s, en, err := getNewRemoteService()
 		if err != nil {
-			log.Fatalf("could delete policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to delete policies for environment %s: %s", en, err.Error())
 		}
 
 		err = s.DeletePolicies()
 		if err != nil {
-			log.Fatalf("could delete policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to delete policies for environment %s: %s", en, err.Error())
 		}
 	},
 }
