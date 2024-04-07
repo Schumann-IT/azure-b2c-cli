@@ -13,7 +13,7 @@ clean:
 	@rm -Rf dist
 	@rm -f ./azure-b2c-cli*
 
-build:
+build: clean
 	@go build -o azure-b2c-cli
 
 install: azure-b2c-cli
