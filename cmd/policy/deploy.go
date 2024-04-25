@@ -14,12 +14,12 @@ var deploy = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		s, en, err := getDeployService(cmd.Flags())
 		if err != nil {
-			log.Fatalf("could deploy policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to deploy policies for environment %s: %s", en, err.Error())
 		}
 
 		err = s.DeployPolicies(en)
 		if err != nil {
-			log.Fatalf("could deploy policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to deploy policies for environment %s: %s", en, err.Error())
 		}
 	},
 }
@@ -42,7 +42,8 @@ func getDeployService(flags *pflag.FlagSet) (*b2c.Service, string, error) {
 		errs = multierror.Append(errs, err)
 	}
 
-	s, err := b2c.NewServiceFromConfigFile(cf, "", bd)
+	s, err := b2c.NewServiceFromConfigFile(cf)
+	s.MustWithTargetDir(bd)
 	if err != nil {
 		errs = multierror.Append(errs, err)
 	}

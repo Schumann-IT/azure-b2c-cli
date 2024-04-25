@@ -11,12 +11,12 @@ var list = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		s, en, err := getNewRemoteService()
 		if err != nil {
-			log.Fatalf("could list policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to list policies for environment %s: %s", en, err.Error())
 		}
 
 		err = s.ListPolicies()
 		if err != nil {
-			log.Fatalf("could list policies for environment %s: %s", en, err.Error())
+			log.Fatalf("failed to list policies for environment %s: %s", en, err.Error())
 		}
 	},
 }
